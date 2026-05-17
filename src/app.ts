@@ -4,6 +4,7 @@ import express, { type Application, type Request, type Response } from "express"
 import { pool } from "./db";
 import { userRoute } from "./modules/user/user.routes";
 import { profileRoutes } from "./modules/profile/profile.route";
+import { authRouter } from "./modules/auth/auth.route";
 const app:Application = express()
 //const port = config.port
 
@@ -23,6 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/users',userRoute);
 app.use('/api/profile',profileRoutes)
+app.use('/api/auth',authRouter)
 
 
 
