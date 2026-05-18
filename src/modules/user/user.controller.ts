@@ -20,13 +20,14 @@ const createUser=async (req: Request, res: Response) => {
     });
   }
 }
-const getAllUsers=()=>async (req: Request, res: Response) => {
+const getAllUsers=async (req: Request, res: Response) => {
+  console.log ('controler', req.user)
   try {
     const result= await userService.getAllUsersFromDB()
     res.status(200).json({
       success: true,
       message: "Users retrived successfully!",
-      data: result.rows,
+      data: result,
     });
   } catch (error: any) {
     res.status(500).json({

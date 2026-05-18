@@ -5,12 +5,15 @@ import { pool } from "./db";
 import { userRoute } from "./modules/user/user.routes";
 import { profileRoutes } from "./modules/profile/profile.route";
 import { authRouter } from "./modules/auth/auth.route";
+import logger from "./midleware/looger";
 const app:Application = express()
+
 //const port = config.port
 
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger)
 
 
 
