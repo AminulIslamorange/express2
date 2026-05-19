@@ -3,9 +3,12 @@ import type { NextFunction, Request, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import { pool } from "../db";
+import type { Roles } from "../types";
 
-const auth=()=>{
+const auth=(...roles:Roles[])=>{
+  
     return async (req:Request,res:Response,next:NextFunction)=>{
+      console.log(roles)
    try { //console.log(req.headers.authorization);
     const token=req.headers.authorization;
     if(! token){
@@ -40,6 +43,13 @@ const auth=()=>{
           success: false,
           message: "Forbidden!!",
         });
+      }
+      if(roles.length && !roles.includes(user.role)){
+         res.status(403).json({
+          success: false,
+          message: "Forbidden!!",
+        });
+
       }
       req.user=decoded; 
 
