@@ -8,14 +8,22 @@ import { authRouter } from "./modules/auth/auth.route";
 import logger from "./midleware/looger";
 const app:Application = express();
 
-import CookieParser from 'cookie-parser'
+import CookieParser from 'cookie-parser';
+import cors from 'cors'
+import { globalErrorHanlder } from "./midleware/globalErrorHandlar";
 
 //const port = config.port
 app.use(CookieParser());
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
-app.use(logger)
+app.use(logger);
+const corsOptions = {
+  origin: 'http://localhost:5000',
+ 
+}
+
+app.use(cors(corsOptions));
 
 
 
@@ -35,8 +43,8 @@ app.use('/api/auth',authRouter)
 
 
 
-
-
+// Global Error Handling Middleware
+app.use(globalErrorHanlder);
 
 
 export default app;
